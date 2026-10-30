@@ -1,0 +1,32 @@
+listen:
+  host: 0.0.0.0 # interface to listen on. 0.0.0.0 for all interfaces 
+  port: 10000 # port to listen on. TCP GELF
+
+output:
+  host: 127.0.0.1 # ip of upstream server(Graylog or Load-Balancer)
+  port: 10001 # port of the upstream server
+  protocol: tcp # upstream protocol. "tcp" or "udp" 
+
+aggregations:
+  - name: aggregation1 # name of the aggregation. visible in the aggregated logs as "aggregation_name"
+    flush_after: 10 # time to wait in seconds until aggregations are flushed.
+    drop_incomplete: False # True: aggregation will be dropped when not all fields are collected.  False: aggregation will be send partially when "flush_after" ttl is reached. The state of the aggregation will be reported in field "aggregation_complete"
+    all_fields: True # True: aggregates all fields in the Logs False: aggregates only fields in "group_by" and "fields"
+    group_by: # fields used as aggregation keys 
+      - key1
+      - key2
+    fields: # fields to aggregate 
+      - field1
+      - field2
+      - field3
+
+  - name: aggregation2
+    flush_after: 10 
+    drop_incomplete: True
+    all_fields: True
+    group_by:
+      - key3
+      - key4
+    fields:
+      - field1
+      - field2 

@@ -1,0 +1,16 @@
+[Unit]
+Description=GELF I/O Log Aggregator
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/path/to/script
+ExecStart=/path/to/venv/python3 /path/to/script/app.py
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
